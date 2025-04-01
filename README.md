@@ -1,34 +1,32 @@
-React Learning Project - Inspired by Swiggy 🍔🚀
-This project is a hands-on learning experience with React, exploring key concepts like JSX, components, reconciliation, fragments, hooks, Redux store, and more. To make learning more practical, I am building a Swiggy-inspired application using its public API to fetch real-time restaurant data.
+# 🍔 React Learning Project - Inspired by Swiggy 🚀
 
-🚀 Tech Stack
-React + Vite ⚡ (Fast development with Hot Module Replacement)
+This project is a hands-on learning experience with **React**, exploring key concepts like **JSX, components, reconciliation, fragments, hooks, Redux store**, and more. To make learning more practical, I am building a **Swiggy-inspired application** using its **public API** to fetch real-time restaurant data.
 
-React Hooks 🎣 (State & Effect management)
+---
 
-React Router 🛤️ (Navigation between pages)
+## 🚀 Tech Stack
+- **React + Vite** ⚡ (Fast development with Hot Module Replacement)
+- **React Hooks** 🎣 (State & Effect management)
+- **React Router** 🛤️ (Navigation between pages)
+- **Redux Store** 📦 (State management)
+- **ESLint & Prettier** ✨ (Code formatting & linting)
+- **Tailwind CSS** 🎨 (Styling)
+- **Swiggy API** 🍽️ (Fetching real-world data)
 
-Redux Store 📦 (State management)
+---
 
-ESLint & Prettier ✨ (Code formatting & linting)
+## 📌 Key Concepts Covered
+- 🔹 **JSX** - How JSX works under the hood
+- 🔹 **React Reconciliation** - Understanding the virtual DOM and how React updates the UI efficiently
+- 🔹 **React Fragments** - Using fragments instead of unnecessary div wrappers
+- 🔹 **Hooks (useState, useEffect, useRef, useMemo, useCallback)** - Managing component state and side effects
+- 🔹 **Redux Store & State Management** - Handling global state with Redux Toolkit
+- 🔹 **Lazy Loading & Code Splitting** - Optimizing performance
 
-Tailwind CSS 🎨 (Styling)
+---
 
-Swiggy API 🍽️ (Fetching real-world data)
-
-📌 Key Concepts Covered
-🔹 JSX - How JSX works under the hood
-
-🔹 React Reconciliation - Understanding the virtual DOM and how React updates the UI efficiently
-
-🔹 React Fragments - Using fragments instead of unnecessary div wrappers
-
-🔹 Hooks (useState, useEffect, useRef, useMemo, useCallback) - Managing component state and side effects
-
-🔹 Redux Store & State Management - Handling global state with Redux Toolkit
-
-🔹 Lazy Loading & Code Splitting - Optimizing performance
-
-🔹 Data Fetching & API Handling - Fetching live restaurant data from Swiggy’s API
-
-🔹 Custom Hooks & Reusable Components - Writing modular, efficient code
+## 🛠️ Project Setup
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/your-username/react-swiggy-clone.git
+   cd react-swiggy-clone
