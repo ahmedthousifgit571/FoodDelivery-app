@@ -33,3 +33,7 @@
   display: flex;
   flex-wrap: wrap;
 }
+
+.chumma {
+  width: 100px;
+}
