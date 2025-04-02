@@ -15,6 +15,7 @@ function BodyComponent() {
   const [searchInput,setSearchInput] = useState("")
   const [allRestaurant, setAllRestaurant] = useState([]);
   const [filteredRestaurant,setFitleredRestaurant] = useState([])
+  const [isLoading,setIsLoading] = useState(true)
 
   useEffect(()=>{
     getRestaurants()
@@ -22,6 +23,7 @@ function BodyComponent() {
 
   
   async function getRestaurants(){
+    setIsLoading(true)
     try{
       const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=10.9214807&lng=77.004626&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING")
     const json = await data.json()
@@ -31,14 +33,17 @@ function BodyComponent() {
     setFitleredRestaurant(restaurants)
 
     console.log(json);
+    setIsLoading(false)
     }catch(error){
       console.error('error fetching data:',error)
+      setIsLoading(false)
     }
    
   }
+  if(isLoading) return <Shimmer />
 
   if(filteredRestaurant.length === 0) return <NoRestaurantFound />
-  return (allRestaurant.length === 0 ) ? <Shimmer /> : (
+  return (
     <>
       <div className="search-container">
         <input className="search-text" type="text" value={searchInput} onChange={(e) => setSearchInput(e.target.value)} />
@@ -50,7 +55,7 @@ function BodyComponent() {
         
       </div>
       <div className="restaurant-list">
-        {allRestaurant.map((resto) => (
+        {filteredRestaurant.map((resto) => (
           <RestaurantCard
             key={resto.info.id}
             restaurant={resto}

@@ -462,3 +462,10 @@ export const restaurantList = [
         }
     },
 ]
+
+
+
+//worked features 
+
+// 1. shimmer ui
+// 2. search functionality
