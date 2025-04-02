@@ -37,3 +37,117 @@
 .chumma {
   width: 100px;
 }
+
+
+/* Shimmer Component CSS */
+.shimmer-container {
+  width: 100%;
+  padding: 20px;
+}
+
+.search-shimmer {
+  height: 40px;
+  width: 300px;
+  background: linear-gradient(to right, #f6f7f8 0%, #edeef1 20%, #f6f7f8 40%, #f6f7f8 100%);
+  background-size: 800px 104px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  animation: shimmer 1.5s infinite linear;
+}
+
+.shimmer-card {
+  width: 200px;
+  height: 300px;
+  background-color: #fff;
+  border-radius: 8px;
+  margin: 10px;
+  padding: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.shimmer-img {
+  height: 150px;
+  background: linear-gradient(to right, #f6f7f8 0%, #edeef1 20%, #f6f7f8 40%, #f6f7f8 100%);
+  background-size: 800px 104px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  animation: shimmer 1.5s infinite linear;
+}
+
+.shimmer-title {
+  height: 20px;
+  width: 80%;
+  background: linear-gradient(to right, #f6f7f8 0%, #edeef1 20%, #f6f7f8 40%, #f6f7f8 100%);
+  background-size: 800px 104px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  animation: shimmer 1.5s infinite linear;
+}
+
+.shimmer-tags {
+  height: 15px;
+  width: 90%;
+  background: linear-gradient(to right, #f6f7f8 0%, #edeef1 20%, #f6f7f8 40%, #f6f7f8 100%);
+  background-size: 800px 104px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  animation: shimmer 1.5s infinite linear;
+}
+
+.shimmer-details {
+  height: 15px;
+  width: 70%;
+  background: linear-gradient(to right, #f6f7f8 0%, #edeef1 20%, #f6f7f8 40%, #f6f7f8 100%);
+  background-size: 800px 104px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  animation: shimmer 1.5s infinite linear;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -400px 0;
+  }
+  100% {
+    background-position: 400px 0;
+  }
+}
+
+/* No Restaurant Found CSS */
+.no-restaurant-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+  text-align: center;
+  padding: 20px;
+}
+
+.no-restaurant-icon {
+  font-size: 80px;
+  color: #ccc;
+  margin-bottom: 20px;
+}
+
+.no-restaurant-container h2 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.no-restaurant-container p {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 10px;
+  max-width: 500px;
+}
+
+/* If you don't have Font Awesome, this provides a simple search icon using CSS */
+.fa-search:before {
+  content: "🔍";
+  font-size: 60px;
+}
