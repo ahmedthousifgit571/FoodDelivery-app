@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import RestaurantCard from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import NoRestaurantFound from "./NoRestaurantFound";
-
+import { Link } from "react-router-dom";
 
 function filterData(searchInput, allRestaurant) {
   return allRestaurant.filter((resto) =>
@@ -11,53 +11,62 @@ function filterData(searchInput, allRestaurant) {
 }
 
 function BodyComponent() {
-  const [searchInput,setSearchInput] = useState("")
+  const [searchInput, setSearchInput] = useState("");
   const [allRestaurant, setAllRestaurant] = useState([]);
-  const [filteredRestaurant,setFitleredRestaurant] = useState([])
-  const [isLoading,setIsLoading] = useState(true)
+  const [filteredRestaurant, setFitleredRestaurant] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(()=>{
-    getRestaurants()
-  },[])
-  
+  useEffect(() => {
+    getRestaurants();
+  }, []);
 
-  async function getRestaurants(){
-    setIsLoading(true)
-    try{
-    const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=10.9214807&lng=77.004626&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING")
-    const json = await data.json()
-    const restaurants = json?.data?.cards[3]?.card?.card?.gridElements?.infoWithStyle?.restaurants || [];
-    setAllRestaurant(restaurants)
-    setFitleredRestaurant(restaurants)
+  async function getRestaurants() {
+    setIsLoading(true);
+    try {
+      const data = await fetch(
+        "https://www.swiggy.com/dapi/restaurants/list/v5?lat=10.9214807&lng=77.004626&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+      );
+      const json = await data.json();
+      const restaurants =
+        json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle
+          ?.restaurants || [];
+      setAllRestaurant(restaurants);
+      setFitleredRestaurant(restaurants);
 
-    console.log(json);
-    setIsLoading(false)
-    }catch(error){
-      console.error('error fetching data:',error)
-      setIsLoading(false)
+      console.log(json);
+      setIsLoading(false);
+    } catch (error) {
+      console.error("error fetching data:", error);
+      setIsLoading(false);
     }
-   
   }
-  if(isLoading) return <Shimmer />
+  if (isLoading) return <Shimmer />;
 
-  if(filteredRestaurant.length === 0) return <NoRestaurantFound />
+  if (filteredRestaurant.length === 0) return <NoRestaurantFound />;
   return (
     <>
       <div className="search-container">
-        <input className="search-text" type="text" value={searchInput} onChange={(e) => setSearchInput(e.target.value)} />
-        <button className="search-input" onClick  ={()=> {
-          const data = filterData(searchInput,allRestaurant)
-          setFitleredRestaurant(data)
-          
-         }}>search</button>
-        
+        <input
+          className="search-text"
+          type="text"
+          value={searchInput}
+          onChange={(e) => setSearchInput(e.target.value)}
+        />
+        <button
+          className="search-input"
+          onClick={() => {
+            const data = filterData(searchInput, allRestaurant);
+            setFitleredRestaurant(data);
+          }}
+        >
+          search
+        </button>
       </div>
       <div className="restaurant-list">
         {filteredRestaurant.map((resto) => (
-          <RestaurantCard
-            key={resto.info.id}
-            restaurant={resto}
-          />
+          <Link to={"/menu/" + resto.info.id} key={resto.info.id}>
+            <RestaurantCard restaurant={resto} />
+          </Link>
         ))}
       </div>
     </>
@@ -65,4 +74,3 @@ function BodyComponent() {
 }
 
 export default BodyComponent;
-
