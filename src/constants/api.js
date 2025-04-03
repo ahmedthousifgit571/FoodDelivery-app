@@ -469,3 +469,6 @@ export const restaurantList = [
 
 // 1. shimmer ui
 // 2. search functionality
+// 3. react router 
+// 4. useState,useEffect
+// bugss: 1. search func missing when not found

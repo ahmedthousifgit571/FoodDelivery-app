@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import RestaurantCard from "./RestaurantCard";
-import { restaurantList } from "../constants/api";
 import Shimmer from "./Shimmer";
 import NoRestaurantFound from "./NoRestaurantFound";
 
@@ -20,15 +19,14 @@ function BodyComponent() {
   useEffect(()=>{
     getRestaurants()
   },[])
-
   
+
   async function getRestaurants(){
     setIsLoading(true)
     try{
-      const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=10.9214807&lng=77.004626&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING")
+    const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=10.9214807&lng=77.004626&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING")
     const json = await data.json()
-    const restaurants = json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants || [];
-    console.log(json)
+    const restaurants = json?.data?.cards[3]?.card?.card?.gridElements?.infoWithStyle?.restaurants || [];
     setAllRestaurant(restaurants)
     setFitleredRestaurant(restaurants)
 
