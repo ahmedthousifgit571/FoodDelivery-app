@@ -28,7 +28,7 @@ function BodyComponent() {
       );
       const json = await data.json();
       const restaurants =
-        json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle
+        json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
           ?.restaurants || [];
       setAllRestaurant(restaurants);
       setFitleredRestaurant(restaurants);
@@ -45,10 +45,12 @@ function BodyComponent() {
   if (filteredRestaurant.length === 0) return <NoRestaurantFound />;
   return (
     <>
+      <div className="body-container">
       <div className="search-container">
         <input
           className="search-text"
           type="text"
+          placeholder="Search for restaurants and food..."
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
         />
@@ -59,7 +61,7 @@ function BodyComponent() {
             setFitleredRestaurant(data);
           }}
         >
-          search
+          Search
         </button>
       </div>
       <div className="restaurant-list">
@@ -69,6 +71,7 @@ function BodyComponent() {
           </Link>
         ))}
       </div>
+    </div>
     </>
   );
 }
