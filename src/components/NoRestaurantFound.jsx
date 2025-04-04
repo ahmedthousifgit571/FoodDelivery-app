@@ -11,6 +11,6 @@ function NoRestaurantFound() {
       <p>Try different keywords or browse our restaurant list.</p>
     </div>
   );
-}
+} 
 
 export default NoRestaurantFound;

@@ -15,16 +15,16 @@ function HeaderComponent() {
       <Title />
       <div className="nav-items">
         <ul>
-         <li> <Link to="/">Home</Link></li>
-          <li> <Link to="/about"> About</Link></li>
-          <li> <Link to="/contact">Contact</Link></li>
+         <li> <Link to="/" className="nav-link">Home</Link></li>
+          <li> <Link to="/about" className="nav-link"> About</Link></li>
+          <li> <Link to="/contact" className="nav-link">Contact</Link></li>
           <li><Link>Cart</Link></li> 
           
         </ul>
       </div>
       {
      
-       loggedIn ? <button onClick={()=> setloggedIn(false)}>logout</button> : <button onClick={()=> setloggedIn(true)}>login</button>
+       loggedIn ? <button  className="auth-button" onClick={()=> setloggedIn(false)}>logout</button> : <button className="auth-button" onClick={()=> setloggedIn(true)}>login</button>
       }
       
     </div>
