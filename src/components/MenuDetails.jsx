@@ -1,30 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { IMG_CDN_URL } from '../constants/api'
+import useRestaurant from '../utils/useRestaurant'
 import MenuShimmer from './MenuShimmer'
 
 function MenuDetails() {
     const { id } = useParams()
-    const [restaurant, setRestaurant] = useState(null)
-    const [isLoading, setIsLoading] = useState(true)
+    
 
-    useEffect(() => {
-        getRestaurantDetails()
-    }, [])
+    const {restaurant,isLoading} = useRestaurant(id)
 
-    async function getRestaurantDetails() {
-        setIsLoading(true)
-        try {
-            const data = await fetch(`https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=10.9214807&lng=77.004626&restaurantId=${id}&catalog_qa=undefined&submitAction=ENTER`)
-            const json = await data.json()
-            console.log("getRestaurantDetails", json)
-            setRestaurant(json.data)
-            setIsLoading(false)
-        } catch (error) {
-            console.error("Error fetching restaurant details:", error)
-            setIsLoading(false)
-        }
-    }
+    if (isLoading) return <MenuShimmer />
 
     const restaurantInfo = restaurant?.cards?.find(card => 
         card.card?.card?.["@type"] === "type.googleapis.com/swiggy.presentation.food.v2.Restaurant"
@@ -41,8 +27,8 @@ function MenuDetails() {
         .map(item => item.card?.card?.title)
         .filter(Boolean)
 
-    if (isLoading) return <MenuShimmer />
-
+    
+        
     return (
         <div className="body-container menu-details">
             {restaurantInfo ? (
