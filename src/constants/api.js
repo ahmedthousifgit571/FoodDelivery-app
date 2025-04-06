@@ -1,5 +1,7 @@
 export const IMG_CDN_URL = "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/"
 
+export const FETCH_MENU_URL = "https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=10.9214807&lng=77.004626&restaurantId=RESTAURANT_ID&catalog_qa=undefined&submitAction=ENTER"
+
 export const restaurantList = [
     {
         "card": {

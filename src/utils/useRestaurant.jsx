@@ -1,4 +1,5 @@
 import {useState,useEffect} from 'react'
+import { FETCH_MENU_URL } from '../constants/api'
 
 const useRestaurant = (id) =>{
     const [isLoading, setIsLoading] = useState(true)
@@ -10,7 +11,8 @@ const useRestaurant = (id) =>{
     async function getRestaurantDetails() {
         setIsLoading(true)
         try {
-            const data = await fetch(`https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=10.9214807&lng=77.004626&restaurantId=${id}&catalog_qa=undefined&submitAction=ENTER`)
+            const url = FETCH_MENU_URL.replace('RESTAURANT_ID', id)
+            const data = await fetch(url)
             const json = await data.json()
             console.log("getRestaurantDetails", json)
             setRestaurant(json.data)
