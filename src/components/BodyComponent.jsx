@@ -25,7 +25,7 @@ function BodyComponent() {
       );
       const json = await data.json();
       const restaurants =
-        json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
+        json?.data?.cards[3]?.card?.card?.gridElements?.infoWithStyle
           ?.restaurants || [];
       setAllRestaurant(restaurants);
       setFitleredRestaurant(restaurants);

@@ -36,6 +36,12 @@ function HeaderComponent() {
             </Link>
           </li>
           <li>
+            {" "}
+            <Link to="/instamart" className="nav-link">
+              instamart
+            </Link>
+          </li>
+          <li>
             <Link>Cart</Link>
           </li>
         </ul>
