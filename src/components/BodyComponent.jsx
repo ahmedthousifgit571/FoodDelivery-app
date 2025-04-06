@@ -3,14 +3,15 @@ import RestaurantCard from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import NoRestaurantFound from "./NoRestaurantFound";
 import { Link } from "react-router-dom";
-import {filterData} from '../utils/helper'
-
+import { filterData } from "../utils/helper";
+import useOnline from "../utils/useOnline";
 
 function BodyComponent() {
   const [searchInput, setSearchInput] = useState("");
   const [allRestaurant, setAllRestaurant] = useState([]);
   const [filteredRestaurant, setFitleredRestaurant] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  let isOnline = useOnline();
 
   useEffect(() => {
     getRestaurants();
@@ -24,7 +25,7 @@ function BodyComponent() {
       );
       const json = await data.json();
       const restaurants =
-        json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
+        json?.data?.cards[3]?.card?.card?.gridElements?.infoWithStyle
           ?.restaurants || [];
       setAllRestaurant(restaurants);
       setFitleredRestaurant(restaurants);
@@ -36,38 +37,42 @@ function BodyComponent() {
       setIsLoading(false);
     }
   }
+
+  if (!isOnline) {
+    return <h1>🔴you are offline </h1>;
+  }
   if (isLoading) return <Shimmer />;
 
   if (filteredRestaurant.length === 0) return <NoRestaurantFound />;
   return (
     <>
       <div className="body-container">
-      <div className="search-container">
-        <input
-          className="search-text"
-          type="text"
-          placeholder="Search for restaurants and food..."
-          value={searchInput}
-          onChange={(e) => setSearchInput(e.target.value)}
-        />
-        <button
-          className="search-input"
-          onClick={() => {
-            const data = filterData(searchInput, allRestaurant);
-            setFitleredRestaurant(data);
-          }}
-        >
-          Search
-        </button>
+        <div className="search-container">
+          <input
+            className="search-text"
+            type="text"
+            placeholder="Search for restaurants and food..."
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+          />
+          <button
+            className="search-input"
+            onClick={() => {
+              const data = filterData(searchInput, allRestaurant);
+              setFitleredRestaurant(data);
+            }}
+          >
+            Search
+          </button>
+        </div>
+        <div className="restaurant-list">
+          {filteredRestaurant.map((resto) => (
+            <Link to={"/menu/" + resto.info.id} key={resto.info.id}>
+              <RestaurantCard restaurant={resto} />
+            </Link>
+          ))}
+        </div>
       </div>
-      <div className="restaurant-list">
-        {filteredRestaurant.map((resto) => (
-          <Link to={"/menu/" + resto.info.id} key={resto.info.id}>
-            <RestaurantCard restaurant={resto} />
-          </Link>
-        ))}
-      </div>
-    </div>
     </>
   );
 }

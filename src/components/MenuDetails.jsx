@@ -8,7 +8,7 @@ function MenuDetails() {
     const { id } = useParams()
     
 
-    const {restaurant,isLoading} = useRestaurant(id)
+    const {restaurant,isLoading} = useRestaurant(id)   //custom hook 
 
     if (isLoading) return <MenuShimmer />
 
