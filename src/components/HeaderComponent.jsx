@@ -12,56 +12,73 @@ function HeaderComponent() {
   const [loggedIn, setloggedIn] = useState(false);
   const isOnline = useOnline();
   return (
-    <div className="header">
+    <header className="sticky top-0 z-50 bg-white shadow-md" >
+
+    <div className="max-w-6xl mx-auto px-4 flex items-center justify-between h-20">
       <Title />
-      <div className="nav-items">
-        <ul>
+      <nav className="hidden md:block">
+        <ul className="flex space-x-8">
           <li>
             {" "}
-            <Link to="/" className="nav-link">
+            <Link to="/" className="text-gray-700 hover:text-orange-500 font-medium transition-colors duration-200">
               Home
             </Link>
           </li>
-          <li>
+          <li className="px-2">
             {" "}
-            <Link to="/about" className="nav-link">
+            <Link to="/about" className="text-gray-700 hover:text-orange-500 font-medium transition-colors duration-200">
               {" "}
               About
             </Link>
           </li>
-          <li>
+          <li className="px-2">
             {" "}
-            <Link to="/contact" className="nav-link">
+            <Link to="/contact" className="text-gray-700 hover:text-orange-500 font-medium transition-colors duration-200">
               Contact
             </Link>
           </li>
-          <li>
+          <li className="px-2">
             {" "}
-            <Link to="/instamart" className="nav-link">
+            <Link to="/instamart" className="text-gray-700 hover:text-orange-500 font-medium transition-colors duration-200">
               instamart
             </Link>
           </li>
-          <li>
-            <Link>Cart</Link>
+          <li className="px-2">
+            <Link className="relative flex items-center text-gray-700 hover:text-orange-500 transition-colors duration-200">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+            </svg>
+            <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">0</span>
+            </Link>
           </li>
         </ul>
-      </div>
+      </nav>
 
       {/* to show online status using custom hook useOnline */}
-      <div className="header-actions">
-        <div className={`online-status ${isOnline ? "online" : "offline"}`}>
-          <div className="status-indicator"></div>
-          <span className="status-text">{isOnline ? "Online" : "Offline"}</span>
-        </div>
+     {/* Right Section - Status & Actions */}
+     <div className="flex items-center space-x-6">
+          {/* Online Status Indicator */}
+          <div className="hidden md:flex items-center">
+            <div className={`h-2 w-2 rounded-full mr-2 ${isOnline ? 'bg-green-500' : 'bg-red-500'}`}></div>
+            <span className="text-sm font-medium text-gray-600">
+              {isOnline ? "Online" : "Offline"}
+            </span>
+          </div>
 
-        <button
-          className={`auth-button ${loggedIn ? "logout-btn" : "login-btn"}`}
-          onClick={() => setloggedIn(!loggedIn)}
-        >
-          {loggedIn ? "Logout" : "Login"}
-        </button>
+
+          <button
+            onClick={() => setloggedIn(!loggedIn)}
+            className={`py-2 px-4 rounded-md font-medium text-sm transition-colors duration-200 ${
+              loggedIn
+                ? "bg-white text-orange-500 border border-orange-500 hover:bg-orange-50"
+                : "bg-orange-500 text-white hover:bg-orange-600"
+            }`}
+          >
+            {loggedIn ? "Logout" : "Login"}
+          </button>
       </div>
     </div>
+  </header>
   );
 }
 

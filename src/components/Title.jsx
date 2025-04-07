@@ -3,9 +3,9 @@ import logo from "../assets/logo.png";
 
 function Title() {
   return (
-    <a href="">
+    <a href="/" className="flex items-center">
       <div>
-        <img className="logo" src={logo} alt="" />
+        <img className="h-12 w-auto" src={logo} alt="Food Delivery Logo" />
       </div>
     </a>
   );
