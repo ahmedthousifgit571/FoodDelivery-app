@@ -3,7 +3,6 @@ import { IMG_CDN_URL } from '../constants/api';
 
 const RestaurantCard = ({ restaurant }) => {
   const { cloudinaryImageId, name, cuisines, avgRating, sla, costForTwo } = restaurant.info;
-  
   return (
     <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
       {/* Restaurant Image */}
@@ -19,6 +18,7 @@ const RestaurantCard = ({ restaurant }) => {
               {sla.deliveryTime} min
             </span>
           )}
+         
         </div>
       </div>
       
