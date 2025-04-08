@@ -7,6 +7,7 @@ import Contacts from "./components/Contacts";
 import MenuDetails from "./components/MenuDetails";
 import Profile from "./components/Profile";
 import { lazy,Suspense } from "react";
+import MenuShimmer from "./components/MenuShimmer";
 
 
 const Instamart = lazy(()=> import('./components/Instamart'))
@@ -28,7 +29,7 @@ const appRouter = createBrowserRouter([
         },
         {path:"/contact",element:<Contacts />},
         {path:"/menu/:id",element:<MenuDetails />},
-        {path:"/instamart",element: <Suspense fallback={<div>Loading...</div>}><Instamart /></Suspense>}
+        {path:"/instamart",element: <Suspense fallback={<MenuShimmer />}><Instamart /></Suspense>}
 
 
       ]

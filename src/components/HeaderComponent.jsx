@@ -1,16 +1,21 @@
-import React, { useState } from "react";
+import React, { useState ,useContext} from "react";
 import Title from "./Title";
 import { Link } from "react-router-dom";
 import useOnline from "../utils/useOnline";
+import UserContext from "../utils/UserContext";
 
 const loggedInUser = () => {
   //authentication api
   return true;
 };
 
+
+
 function HeaderComponent() {
   const [loggedIn, setloggedIn] = useState(false);
   const isOnline = useOnline();
+
+  const {user} = useContext(UserContext)
   return (
     <header className="sticky top-0 z-50 bg-white shadow-md" >
 
@@ -65,7 +70,7 @@ function HeaderComponent() {
             </span>
           </div>
 
-
+          <span className="p-10 font-bold text-red-900">{user.name}</span>
           <button
             onClick={() => setloggedIn(!loggedIn)}
             className={`py-2 px-4 rounded-md font-medium text-sm transition-colors duration-200 ${
