@@ -11,7 +11,7 @@ This project is a hands-on learning experience with **React**, exploring key con
 - **Redux Store** 📦 (State management)
 - **ESLint & Prettier** ✨ (Code formatting & linting)
 - **Tailwind CSS** 🎨 (Styling)
-- **Swiggy API** 🍽️ (Fetching real-world data)
+- **Swiggy Public API** 🍽️ (Fetching real-world data)
 
 ---
 
