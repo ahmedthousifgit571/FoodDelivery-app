@@ -3,12 +3,24 @@ import { useParams } from 'react-router-dom'
 import { IMG_CDN_URL } from '../constants/api'
 import useRestaurant from '../utils/useRestaurant'
 import MenuShimmer from './MenuShimmer'
+import { useDispatch } from 'react-redux'
+import { addItem } from '../utils/cartSlice'
 
 function MenuDetails() {
     const { id } = useParams()
-    
+    const { restaurant, isLoading } = useRestaurant(id)   //custom hook 
+    const dispatch = useDispatch()
+    const [activeCategory, setActiveCategory] = useState(null)
 
-    const {restaurant,isLoading} = useRestaurant(id)   //custom hook 
+    useEffect(() => {
+        // Set the first category as active when data is loaded
+        if (!isLoading && restaurant) {
+            const categories = getCategories()
+            if (categories.length > 0) {
+                setActiveCategory(categories[0])
+            }
+        }
+    }, [isLoading, restaurant])
 
     if (isLoading) return <MenuShimmer />
 
@@ -21,13 +33,34 @@ function MenuDetails() {
         card.groupedCard
     )?.groupedCard?.cardGroupMap?.REGULAR?.cards || []
 
-    // Extract category names
-    const categories = menuItems
-        .filter(item => item.card?.card?.["@type"] === "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory")
-        .map(item => item.card?.card?.title)
-        .filter(Boolean)
+    // Function to get categories
+    const getCategories = () => {
+        return menuItems
+            .filter(item => item.card?.card?.["@type"] === "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory")
+            .map(item => item.card?.card?.title)
+            .filter(Boolean)
+    }
 
-    
+    // Function to get items for a specific category
+    const getItemsForCategory = (categoryTitle) => {
+        const categoryCard = menuItems.find(item => 
+            item.card?.card?.["@type"] === "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory" && 
+            item.card?.card?.title === categoryTitle
+        )
+        
+        return categoryCard?.card?.card?.itemCards || []
+    }
+
+    const handleAddItem = (item) => {
+        // Adding item details to cart instead of just "grapes"
+        dispatch(addItem({
+            id: item.card.info.id,
+            name: item.card.info.name,
+            price: item.card.info.price || item.card.info.defaultPrice,
+            imageId: item.card.info.imageId,
+            description: item.card.info.description
+        }))
+    }
         
     return (
         <div className="max-w-6xl mx-auto px-4 py-6">
@@ -105,18 +138,19 @@ function MenuDetails() {
                         </div>
                         
                         {/* Menu Categories */}
-                        {categories && categories.length > 0 && (
+                        {getCategories().length > 0 && (
                             <div className="mb-6">
                                 <h3 className="text-lg font-bold text-gray-800 mb-4">Menu Categories</h3>
                                 <div className="flex flex-wrap gap-3">
-                                    {categories.map((category, index) => (
+                                    {getCategories().map((category, index) => (
                                         <button 
                                             key={index} 
                                             className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200 ${
-                                                index === 0 
+                                                category === activeCategory 
                                                 ? "bg-orange-500 text-white" 
                                                 : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                                             }`}
+                                            onClick={() => setActiveCategory(category)}
                                         >
                                             {category}
                                         </button>
@@ -125,8 +159,51 @@ function MenuDetails() {
                             </div>
                         )}
                         
+                        {/* Menu Items */}
+                        {activeCategory && (
+                            <div className="mt-8">
+                                <h2 className="text-xl font-bold mb-4">{activeCategory}</h2>
+                                <div className="space-y-6">
+                                    {getItemsForCategory(activeCategory).map((item) => (
+                                        <div key={item.card.info.id} className="flex justify-between border-b pb-6">
+                                            <div className="flex-grow pr-4">
+                                                <h3 className="text-lg font-medium text-gray-800">
+                                                    {item.card.info.name}
+                                                </h3>
+                                                <div className="flex items-center mt-1">
+                                                    <span className="text-sm font-medium text-gray-700">
+                                                        ₹{(item.card.info.price || item.card.info.defaultPrice) / 100}
+                                                    </span>
+                                                </div>
+                                                <p className="text-sm text-gray-500 mt-2 line-clamp-2">
+                                                    {item.card.info.description}
+                                                </p>
+                                            </div>
+                                            <div className="flex flex-col items-center">
+                                                {item.card.info.imageId && (
+                                                    <div className="w-28 h-28 relative">
+                                                        <img 
+                                                            src={`${IMG_CDN_URL}${item.card.info.imageId}`}
+                                                            alt={item.card.info.name}
+                                                            className="w-full h-full object-cover rounded-lg"
+                                                        />
+                                                    </div>
+                                                )}
+                                                <button 
+                                                    className="mt-2 bg-white hover:bg-gray-50 text-green-600 font-medium border border-green-600 rounded-lg px-4 py-1 transition-colors duration-200"
+                                                    onClick={() => handleAddItem(item)}
+                                                >
+                                                    ADD
+                                                </button>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+                        
                         {/* Action Buttons */}
-                        <div className="flex flex-wrap gap-4">
+                        <div className="flex flex-wrap gap-4 mt-8 pt-4 border-t">
                             <button className="flex items-center px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white font-medium rounded-lg transition-colors duration-200">
                                 <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     <path d="M9 20l-5.5-5.5 1.5-1.5 4 4 12-12 1.5 1.5L9 20z" />
