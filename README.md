@@ -19,7 +19,7 @@ This project is a hands-on learning experience with **React**, exploring key con
 - 🔹 **JSX** - How JSX works under the hood  
 - 🔹 **React Reconciliation** - Understanding the virtual DOM and how React updates the UI efficiently  
 - 🔹 **React Fragments** - Using fragments instead of unnecessary div wrappers  
-- 🔹 **Hooks (useState, useEffect, useRef, useMemo, useCallback)** - Managing component state and side effects  
+- 🔹 **Hooks (useState, useEffect, useRef, useMemo, useCallback,useSelector)** - Managing component state and side effects  
 - 🔹 **Redux Store & State Management** - Handling global state with Redux Toolkit  
 - 🔹 **Lazy Loading & Code Splitting** - Optimizing performance  
 - 🔹 **Online/Offline Tracking** - Detecting user’s internet connectivity status and updating UI accordingly  
